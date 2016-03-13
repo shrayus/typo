@@ -98,11 +98,10 @@ class Article < Content
     article = article.find_by_id(other_article_id)
     
     return false unless (article.id or self.id)
-    
-    self.body = self.body + ' ' + article.body
-    self.comments << article.comments
-    self.save!
-    article.destroy
+    update_attribute(:body, article.body)
+    update_attribute(:comments, article.comments)
+    self.reload
+    article.delete
     return true
   end
   
