@@ -94,6 +94,18 @@ class Article < Content
 
   include Article::States
 
+  def merge_with(other_article_id)
+    article = article.find_by_id(other_article_id)
+    
+    return false unless (article.id or self.id)
+    
+    self.body = self.body + ' ' + article.body
+    self.comments << article.comments
+    self.save!
+    article.destroy
+    return true
+  end
+  
   class << self
     def last_draft(article_id)
       article = Article.find(article_id)
