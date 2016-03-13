@@ -241,7 +241,7 @@ class Admin::ContentController < Admin::BaseController
     @resources = Resource.by_created_at
   end
 
-  def merge_with
+  def fuck
     @article = Article.find(params[:id])
     if @article.merge_with params[:merge_with]
       flash[:notice] = "merged successfully"
